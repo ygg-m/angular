@@ -1,0 +1,11 @@
+<header class="header">
+  <h1>Todos</h1>
+  <input
+    placeholder="What needs to be done?"
+    autofocus
+    class="new-todo"
+    [value]="text"
+    (keyup)="changeText($event)"
+    (keyup.Enter)="addTodo()"
+  />
+</header>
