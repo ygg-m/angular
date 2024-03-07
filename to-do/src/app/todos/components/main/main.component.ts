@@ -19,14 +19,13 @@ export class MainComponent {
   todoService = inject(TodoService);
   noTodoClass$: Observable<boolean>;
   isAllTodosSelected$: Observable<boolean>;
+  editingId: string | null = null;
 
   constructor() {
     // select all todos
     this.isAllTodosSelected$ = this.todoService.todos$.pipe(
       map((todos) => todos.every((todo) => todo.isCompleted))
     );
-
-    console.log('this.isAllTodosSelected$', this.isAllTodosSelected$);
 
     // hide todos
     this.noTodoClass$ = this.todoService.todos$.pipe(
@@ -39,7 +38,6 @@ export class MainComponent {
       this.todoService.filter$,
     ]).pipe(
       map(([todos, filter]: [TodoInterface[], FilterEnum]) => {
-        console.log('combine', todos, filter);
         switch (filter) {
           case FilterEnum.active:
             return todos.filter((todo) => !todo.isCompleted);
@@ -57,5 +55,9 @@ export class MainComponent {
   toggleAllTodos(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.todoService.toggleAll(target.checked);
+  }
+
+  setEditingId(editingId: string | null): void {
+    this.editingId = editingId;
   }
 }

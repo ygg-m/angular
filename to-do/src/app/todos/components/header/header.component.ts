@@ -12,19 +12,15 @@ export class HeaderComponent {
   todoService = inject(TodoService);
 
   constructor() {
-    this.todoService.todos$.subscribe((todos) => {
-      console.log('todos', todos);
-    });
+    this.todoService.todos$.subscribe((todos) => {});
   }
 
   changeText(event: Event) {
     const target = event.target as HTMLInputElement;
     this.text = target.value;
-    console.log(target.value);
   }
 
   addTodo(): void {
-    console.log('addTodo', this.text);
     this.todoService.addTodo(this.text);
   }
 }
